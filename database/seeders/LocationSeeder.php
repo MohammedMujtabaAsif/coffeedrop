@@ -50,9 +50,11 @@ class LocationSeeder extends Seeder
                         // Store the day's number in the week
                         'day' => $dayCount,
 
-                        // Store the retrieved time values; store null if time not provided
-                        'opentime' => $opentime != '' ?? $opentime,
-                        'closetime' => $closetime != '' ?? $closetime,
+                        // Check the times collected are not empty.
+                        // If time is not empty, then store it
+                        // Else store null
+                        'opentime' => $opentime != '' ? $opentime : null,
+                        'closetime' => $closetime != '' ? $closetime : null,
                     ]);
 
                     // Increment the counter to store the next day
