@@ -47,19 +47,18 @@ class LocationSeeder extends Seeder
                     $opentime = $data[$dayCount];
                     $closetime = $data[$dayCount + 7];
 
-                    // Store a Day model
-                    Day::create([
-                        // Use the location id from the Location model created above
-                        'location_id' => $location->id,
-                        // Store the day's number in the week
-                        'day' => $days[$dayCount - 1],
-
-                        // Check the times collected are not empty.
-                        // If time is not empty, then store it
-                        // Else store null
-                        'opentime' => $opentime != '' ? $opentime : null,
-                        'closetime' => $closetime != '' ? $closetime : null,
-                    ]);
+                    // Check the opening time collected is not empty.
+                    if ($opentime != '') {
+                        // Store a Day model
+                        Day::create([
+                            // Use the location id from the Location model created above
+                            'location_id' => $location->id,
+                            // Store the day's number in the week
+                            'day' => $days[$dayCount - 1],
+                            'opentime' => $opentime,
+                            'closetime' => $closetime,
+                        ]);
+                    }
 
                     // Increment the counter to store the next day
                     $dayCount++;
