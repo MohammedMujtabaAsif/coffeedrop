@@ -16,7 +16,7 @@ class CreateDaysTable extends Migration
         Schema::create('days', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('location_id');
-            $table->unsignedTinyInteger('day');
+            $table->string('day');
             $table->time('opentime')->nullable();
             $table->time('closetime')->nullable();
             $table->timestamps();

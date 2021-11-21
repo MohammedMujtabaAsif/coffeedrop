@@ -18,7 +18,10 @@ class LocationSeeder extends Seeder
         // Empty the databases
         Location::truncate();
         Day::truncate();
-//
+
+        // Set the days of the week
+        $days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+
         // Open the file that will be read
         $dataFile = fopen(base_path('/database/data/location_data.csv'), 'r');
 
@@ -38,7 +41,8 @@ class LocationSeeder extends Seeder
                 $dayCount = 1;
 
                 // Loop through the day creation for the number of days in a week
-                while ($dayCount <= 7) {
+                while ($dayCount < 7) {
+
                     // Retrive the open and close time for this day of the week
                     $opentime = $data[$dayCount];
                     $closetime = $data[$dayCount + 7];
@@ -48,7 +52,7 @@ class LocationSeeder extends Seeder
                         // Use the location id from the Location model created above
                         'location_id' => $location->id,
                         // Store the day's number in the week
-                        'day' => $dayCount,
+                        'day' => $days[$dayCount - 1],
 
                         // Check the times collected are not empty.
                         // If time is not empty, then store it

@@ -43,14 +43,5 @@ class Day extends Model
      *
      */
     protected $appends = [
-        'dayname',
     ];
-
-    /**
-     * Retrieve the name of the day based upon it's id from the Days enum.
-     */
-    public function getDaynameAttribute()
-    {
-        return Days::getNameFromId($this->attributes['day']);
-    }
 }
