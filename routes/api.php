@@ -41,7 +41,10 @@ Route::middleware(['auth:api'])->prefix('auth')->name('auth')->group(function ()
     });
 
     Route::prefix('post')->group(function () {
-        //
+        Route::prefix('location')->group(function () {
+            Route::post('create', [LocationCon::class, 'create'])->name('create');
+        });
+
     });
 
 });
