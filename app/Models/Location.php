@@ -16,6 +16,8 @@ class Location extends Model
      */
     protected $fillable = [
         'postcode',
+        'longitude',
+        'latitude',
     ];
 
     /**
@@ -24,6 +26,8 @@ class Location extends Model
      * @var array
      */
     protected $hidden = [
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -35,10 +39,10 @@ class Location extends Model
     ];
 
     /**
-    * Get all of the days for the Location
-    *
-    * @return \Illuminate\Database\Eloquent\Relations\HasMany
-    */
+     * Get all of the days for the Location
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function days()
     {
         return $this->hasMany(Day::class);
