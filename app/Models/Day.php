@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\Days;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,6 +27,9 @@ class Day extends Model
      * @var array
      */
     protected $hidden = [
+        'location_id',
+        'created_at',
+        'updated_at',
     ];
 
     /**
