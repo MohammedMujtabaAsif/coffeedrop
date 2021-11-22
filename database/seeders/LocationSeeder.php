@@ -4,10 +4,13 @@ namespace Database\Seeders;
 
 use App\Models\Day;
 use App\Models\Location;
+use App\Traits\LocationTrait;
 use Illuminate\Database\Seeder;
 
 class LocationSeeder extends Seeder
 {
+    use LocationTrait;
+
     /**
      * Run the database seeds.
      *
@@ -34,8 +37,17 @@ class LocationSeeder extends Seeder
             // Check the $data is not the titles line
             if (!$isFirstLine) {
 
+                $longlat = $this->getLongLat($data[0]);
+                $long = $longlat[0];
+                $lat = $longlat[1];
+
                 // Store a Location model containing the postcode of the CoffeeDrop location
-                $location = Location::create(['postcode' => $data[0]]);
+                $location = Location::create(
+                    [
+                        'postcode' => $data[0],
+                        'longitude' => $long,
+                        'latitude' => $lat,
+                    ]);
 
                 // Tracks the number of days that have been saved
                 $dayCount = 1;
