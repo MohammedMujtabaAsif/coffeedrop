@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Models\Day;
 use App\Models\Location;
-use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
+use App\Traits\LocationTrait;
+use App\Traits\ResponseTrait;
+use App\Http\Controllers\Controller;
 
 class LocationController extends Controller
 {
-    use ResponseTrait;
+    use ResponseTrait, LocationTrait;
 
     public function __construct()
     {
@@ -31,9 +32,15 @@ class LocationController extends Controller
             'closing_times' => 'required|array|size:' . count($request->opening_times),
         ]);
 
+        $pc = $request->postcode;
+
+        $longlat = $this->getLongLat($pc);
+
         // Create a new Location model with the provided postcode
         $loc = Location::create([
-            'postcode' => $request->postcode,
+            'postcode' => $pc,
+            'longitude' => $longlat[0],
+            'latitude' => $longlat[1],
         ]);
 
         // Abbreviate the times from the request
@@ -52,6 +59,10 @@ class LocationController extends Controller
             ]);
         }
 
-        return $this->responseWithData([$loc, $loc->days]);
+        // Loads the days relations to be sent to the user
+        $loc->days;
+
+        return $this->responseWithData([$loc]);
     }
+
 }
